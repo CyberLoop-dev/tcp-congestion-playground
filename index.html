@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1220"><title>TCP Congestion Playground</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1220;--panel:#142238;--line:#293c55;--text:#edf6ff;--muted:#a4b6cc;--cyan:#67e8f9;--lime:#a3e635;--rose:#fb7185}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 90% 0,#153b53,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 system-ui,sans-serif}main{max-width:1050px;margin:auto;padding:36px 20px 60px}
+h1{font-size:clamp(2rem,5vw,3.3rem);letter-spacing:-.05em;margin:0}p{color:var(--muted)}.panel{background:linear-gradient(145deg,#162a42,#101b2d);border:1px solid var(--line);border-radius:18px;padding:19px;box-shadow:0 20px 60px #0003}
+.grid{display:grid;grid-template-columns:1fr 2fr;gap:15px;margin-top:22px}.controls{display:grid;gap:13px}.field{display:grid;gap:6px;color:var(--muted);font-size:.9rem}input{width:100%;accent-color:var(--cyan)}button{border:1px solid var(--line);background:#1b3049;color:var(--text);padding:11px 15px;border-radius:12px;cursor:pointer;font-weight:700}button.primary{background:var(--cyan);color:#08202a;border:0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.stat{background:#0c1727;border:1px solid #263a51;border-radius:12px;padding:12px}.stat small{display:block;color:var(--muted)}.stat strong{font-size:1.4rem;color:var(--cyan);font-variant-numeric:tabular-nums}svg{width:100%;height:auto;display:block}.log{max-height:180px;overflow:auto;color:#c4d5e7;font-size:.86rem}.log div{padding:7px 0;border-bottom:1px solid #263a51}.hint{font-size:.82rem;color:var(--muted)}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+</style></head><body><main>
+<h1>TCP <span style="color:var(--cyan)">Congestion</span> Playground</h1><p>Explore how a sender grows its congestion window and reacts to a packet-loss event in a small deterministic model.</p>
+<div class="grid"><section class="panel controls">
+<label class="field">Loss round <strong id="lossLabel">8</strong><input id="lossRound" type="range" min="2" max="24" value="8"></label>
+<label class="field">Initial slow-start threshold <strong id="thresholdLabel">16</strong><input id="threshold" type="range" min="4" max="32" value="16"></label>
+<button class="primary" id="step">Next RTT</button><button id="reset">Reset simulation</button>
+<p class="hint">Teaching model: one segment-sized increase per ACK during slow start is approximated as doubling per RTT. Loss resets cwnd to one and halves the threshold.</p>
+<div class="log" id="log"></div></section>
+<section class="panel"><div class="stats"><div class="stat"><small>Round</small><strong id="round">0</strong></div><div class="stat"><small>cwnd</small><strong id="cwnd">1</strong></div><div class="stat"><small>Phase</small><strong id="phase" style="font-size:1rem">Slow start</strong></div></div><svg id="chart" viewBox="0 0 720 360" role="img" aria-label="Congestion window chart"></svg></section></div>
+</main><script src="/app.js"></script></body></html>

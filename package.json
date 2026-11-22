@@ -1,0 +1,8 @@
+{
+  "name": "tcp-congestion-playground",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive TCP congestion-window teaching simulator",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
